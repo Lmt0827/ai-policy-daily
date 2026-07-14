@@ -1,4 +1,9 @@
 (function() {
+  function initCharts() {
+    if (typeof echarts === 'undefined') {
+      setTimeout(initCharts, 100);
+      return;
+    }
   var style = getComputedStyle(document.documentElement);
   var accent = style.getPropertyValue('--accent').trim() || '#2563eb';
   var accent2 = style.getPropertyValue('--accent2').trim() || '#7c3aed';
@@ -400,4 +405,11 @@
     window.addEventListener('resize', function() { chart8.resize(); });
   }
 
+  } // end of initCharts
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCharts);
+  } else {
+    initCharts();
+  }
 })();
